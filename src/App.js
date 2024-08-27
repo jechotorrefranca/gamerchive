@@ -1,17 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+//add auth checker and route based options
+
+import Homepage from './components/pages/Homepage';
+import AccessDenied from './components/pages/AccessDenied';
+
+const router = createBrowserRouter([
+  {
+    path: "/homepage",
+    element: <Homepage />,
+  },
+  {
+    path: "/accessDenied",
+    element: <AccessDenied />,
+  },
+]);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
