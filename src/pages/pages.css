@@ -1,9 +1,14 @@
-/* body {
+body {
     margin: 0;
     padding: 0;
+    background-color: #0c0c0c;
 }
-might remove later    
-*/
+
+.game_container {
+    background-color: #494949;
+    width: 10rem;
+}
+
 
 .bg {
     background-color: #0c0c0c;
@@ -18,4 +23,9 @@ might remove later
     align-items: center;
     gap: 0.3rem;
     padding-top: 0.5rem;
+}
+
+.container {
+    display: flex;
+    background-color: aliceblue;
 }

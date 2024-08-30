@@ -24,7 +24,7 @@ export function IGDB() {
                         'Client-ID': process.env.REACT_APP_IGDB_CLIENT_ID,
                         'Authorization': `Bearer ${process.env.REACT_APP_IGDB_ACCESS_TOKEN}`,
                     },
-                    data: 'fields name, genres, summary, cover.url; limit 15;'
+                    data: `fields id, name, summary, cover.url, cover.image_id, artworks.url, release_dates, rating, rating_count, genres, videos.video_id; limit 15;`
                 });
                 setGames(response.data);
             } catch (err) {
@@ -37,5 +37,18 @@ export function IGDB() {
         fetchData();
     }, []);
 
-    return { games, loading, error };
+    const getCoverImageUrl = (imageId, size = 'cover_big') => imageId 
+        ? `https://images.igdb.com/igdb/image/upload/t_${size}/${imageId}.jpg` : '';
+
+    return { 
+        games: games.map(game => ({
+            ...game,
+            cover: {
+                ...game.cover,
+                url: getCoverImageUrl(game.cover?.image_id, 'cover_big')
+            }
+        })), 
+        loading, 
+        error 
+    };
 }

@@ -8,13 +8,14 @@ export default function App() {
     if (error) return <p>Error fetching games: {error.message}</p>;
 
     return (
-        <div>
+        <div className='container'>
             {games.map(game => (
                 <div key={game.id}>
                     <h2>{game.name}</h2>
                     <p>{game.summary}</p>
                     {game.cover && <img src={game.cover.url} alt={game.name} />}
                 </div>
+              
             ))}
         </div>
     );
