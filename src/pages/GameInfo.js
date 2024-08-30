@@ -1,38 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { fetchGames } from "../igdbApi";
+import React from 'react';
+import { IGDB } from '../components/IGDB/IGDB';
 
-function GameInfo() {
-  const [games, setGames] = useState([]);
+export default function App() {
+    const { games, loading, error } = IGDB();
 
-  useEffect(() => {
-    async function loadGames() {
-      const gamesData = await fetchGames();
-      setGames(gamesData);
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error fetching games: {error.message}</p>;
 
-    loadGames();
-  }, []);
-
-  return (
-    <div className="App">
-      <h1>IGDB Games</h1>
-      {games.length > 0 ? (
-        <ul>
-          {games.map((game) => (
-            <li key={game.id}>
-              <h2>{game.name}</h2>
-              {game.cover && <img src={game.cover.url.replace("thumb", "cover_big")} alt={game.name} />}
-              <p>{game.summary}</p>
-              {game.genres && <p>Genres: {game.genres.map((genre) => genre.name).join(", ")}</p>}
-              {game.rating && <p>Rating: {game.rating.toFixed(2)}</p>}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading games...</p>
-      )}
-    </div>
-  );
+    return (
+        <div>
+            {games.map(game => (
+                <div key={game.id}>
+                    <h2>{game.name}</h2>
+                    <p>{game.summary}</p>
+                    {game.cover && <img src={game.cover.url} alt={game.name} />}
+                </div>
+            ))}
+        </div>
+    );
 }
-
-export default GameInfo;
